@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap Santri — Peta Jalan Setelah Lulus Pondok</title>
+<meta name="description" content="Peta interaktif jalur hidup santri setelah lulus pondok pesantren: 14 jalur (kuliah, ustadz, kerja, wirausaha, digital, dst.), kuis kecocokan, checklist 30-60-90 hari. Terinspirasi roadmap.sh.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+<style>
+:root {
+  --green-900:#14532d; --green-800:#166534; --green-700:#15803d; --green-600:#16a34a;
+  --gold:#ca8a04; --gold-light:#fde68a; --cream:#faf7ef; --paper:#fffdf7;
+  --ink:#1c1917; --muted:#57534e; --line:#e7e2d4;
+  --a-akad:#1d4ed8; --a-keag:#15803d; --a-kerja:#b45309; --a-usaha:#c2410c; --a-dig:#0f766e; --a-hidup:#a21caf;
+  --shadow:0 8px 24px rgba(20,83,45,.12);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--cream); color:var(--ink); line-height:1.55; }
+.wrap { max-width:1180px; margin:0 auto; padding:0 20px; }
+
+/* ===== nav ===== */
+nav { position:sticky; top:0; z-index:50; background:rgba(250,247,239,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+.nav-inner { max-width:1180px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:18px; overflow-x:auto; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:800; color:var(--green-900); text-decoration:none; white-space:nowrap; font-size:1.05rem; }
+.brand-badge { width:34px; height:34px; border-radius:9px; background:var(--green-800); color:var(--gold-light); display:grid; place-items:center; font-size:.72rem; letter-spacing:.5px; }
+.nav-links { display:flex; gap:4px; margin-left:auto; }
+.nav-links a { text-decoration:none; color:var(--ink); padding:7px 12px; border-radius:8px; font-size:.86rem; white-space:nowrap; }
+.nav-links a:hover { background:#efece0; color:var(--green-900); }
+
+/* ===== hero ===== */
+.hero { background:linear-gradient(160deg, var(--green-900) 0%, var(--green-800) 55%, #1c5a35 100%); color:#f5f5f0; padding:56px 0 64px; position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; right:-120px; top:-120px; width:420px; height:420px; border:60px solid rgba(253,230,138,.08); border-radius:50%; }
+.hero h1 { font-size:clamp(1.9rem, 4.6vw, 3rem); line-height:1.15; letter-spacing:-.5px; max-width:820px; }
+.hero h1 em { color:var(--gold-light); font-style:normal; border-bottom:3px solid var(--gold); }
+.hero p { max-width:640px; margin-top:16px; color:#d9e6dd; font-size:1.02rem; }
+.stats { display:flex; gap:26px; flex-wrap:wrap; margin-top:26px; }
+.stat { border:1px solid rgba(255,255,255,.22); border-radius:12px; padding:10px 16px; background:rgba(255,255,255,.06); }
+.stat b { font-size:1.3rem; color:var(--gold-light); display:block; }
+.stat span { font-size:.78rem; color:#c8d8cc; }
+.hero-cta { margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; }
+.btn { display:inline-block; text-decoration:none; border-radius:10px; padding:12px 20px; font-weight:700; border:0; cursor:pointer; font-size:.95rem; }
+.btn-gold { background:var(--gold); color:#221c05; }
+.btn-gold:hover { background:#eab308; }
+.btn-ghost { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.5); }
+.btn-ghost:hover { background:rgba(255,255,255,.12); }
+
+/* ===== section ===== */
+section { padding:48px 0; }
+.kicker { text-transform:uppercase; letter-spacing:2px; font-size:.72rem; color:var(--gold); font-weight:800; }
+h2 { font-size:1.6rem; color:var(--green-900); margin:6px 0 4px; letter-spacing:-.3px; }
+.sub { color:var(--muted); max-width:720px; margin-bottom:22px; }
+
+/* ===== alur 6 tahap ===== */
+.flow { display:grid; grid-template-columns:repeat(6, 1fr); gap:10px; }
+.stage { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:14px 12px; position:relative; box-shadow:var(--shadow); transition:transform .15s; }
+.stage:hover { transform:translateY(-3px); }
+.stage .num { font-size:.7rem; font-weight:800; color:#fff; background:var(--green-700); border-radius:20px; padding:2px 9px; display:inline-block; }
+.stage h3 { font-size:.86rem; margin:8px 0 4px; color:var(--green-900); }
+.stage p { font-size:.72rem; color:var(--muted); }
+@media (max-width: 980px) { .flow { grid-template-columns:repeat(3,1fr); } }
+@media (max-width: 560px) { .flow { grid-template-columns:repeat(2,1fr); } }
+
+/* ===== filter chips ===== */
+.chips { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+.chip { border:1.5px solid var(--line); background:var(--paper); color:var(--ink); border-radius:20px; padding:6px 14px; cursor:pointer; font-size:.82rem; }
+.chip.active { background:var(--green-800); border-color:var(--green-800); color:#fff; }
+
+/* ===== grid jalur ===== */
+.paths { display:grid; grid-template-columns:repeat(auto-fill, minmax(255px, 1fr)); gap:14px; }
+.card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px; text-align:left; cursor:pointer; transition:all .15s; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px; font:inherit; }
+.card:hover { transform:translateY(-3px); border-color:var(--green-600); }
+.card-head { display:flex; align-items:center; gap:10px; }
+.code { width:42px; height:42px; border-radius:11px; display:grid; place-items:center; color:#fff; font-weight:800; font-size:.8rem; flex-shrink:0; }
+.card h3 { font-size:.95rem; color:var(--ink); }
+.cat-tag { font-size:.66rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
+.card p { font-size:.8rem; color:var(--muted); }
+.card .more { margin-top:auto; font-size:.75rem; font-weight:700; color:var(--green-700); }
+
+/* ===== drawer detail ===== */
+.overlay { position:fixed; inset:0; background:rgba(15, 23, 18, .55); z-index:90; opacity:0; pointer-events:none; transition:opacity .2s; }
+.overlay.open { opacity:1; pointer-events:auto; }
+.drawer { position:fixed; top:0; right:0; height:100dvh; width:min(500px, 100vw); background:var(--paper); z-index:100; transform:translateX(102%); transition:transform .25s ease; display:flex; flex-direction:column; box-shadow:-10px 0 40px rgba(0,0,0,.25); }
+.drawer.open { transform:translateX(0); }
+.drawer-head { display:flex; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); background:var(--green-900); color:#fff; }
+.drawer-head h3 { font-size:1.05rem; }
+.drawer-head small { color:#bcd8c6; font-size:.75rem; }
+.close-btn { margin-left:auto; background:rgba(255,255,255,.15); border:0; color:#fff; width:36px; height:36px; border-radius:9px; cursor:pointer; font-size:1.1rem; }
+.drawer-body { overflow-y:auto; padding:18px; }
+.drawer-body h4 { font-size:.78rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin:16px 0 6px; }
+.drawer-body h4:first-child { margin-top:0; }
+.drawer-body p, .drawer-body li { font-size:.86rem; }
+.drawer-body ol, .drawer-body ul { padding-left:20px; }
+.drawer-body li { margin-bottom:5px; }
+.syarat-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.syarat-chips span { background:#eef4ee; border:1px solid #d5e4d5; color:var(--green-800); font-size:.75rem; border-radius:14px; padding:3px 10px; }
+.contoh-box { background:#fefce8; border:1px solid var(--gold-light); border-radius:10px; padding:10px 12px; font-size:.8rem; }
+
+/* ===== quiz ===== */
+.quiz-box { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:22px; max-width:820px; box-shadow:var(--shadow); }
+.quiz-q { font-weight:700; margin:14px 0 8px; color:var(--green-900); }
+.quiz-q small { display:block; color:var(--muted); font-weight:400; font-size:.78rem; }
+.quiz-opts { display:flex; flex-direction:column; gap:6px; }
+.quiz-opts label { border:1.5px solid var(--line); border-radius:10px; padding:8px 12px; cursor:pointer; font-size:.88rem; display:flex; gap:8px; align-items:flex-start; }
+.quiz-opts input { margin-top:3px; }
+.quiz-opts label:hover { border-color:var(--green-600); }
+.quiz-result { margin-top:18px; display:none; }
+.bar-row { display:flex; align-items:center; gap:10px; margin:8px 0; font-size:.85rem; }
+.bar-name { width:170px; flex-shrink:0; font-weight:600; }
+.bar { flex:1; height:16px; background:#ece9dd; border-radius:10px; overflow:hidden; }
+.bar i { display:block; height:100%; background:linear-gradient(90deg, var(--green-600), var(--green-800)); border-radius:10px; width:0; transition:width .6s; }
+.bar-val { width:44px; text-align:right; color:var(--muted); }
+
+/* ===== 30-60-90 ===== */
+.checklist { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.phase { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px; }
+.phase h3 { font-size:.92rem; color:var(--green-900); border-bottom:2px solid var(--gold-light); padding-bottom:8px; margin-bottom:10px; }
+.phase label { display:flex; gap:9px; font-size:.83rem; align-items:flex-start; padding:6px 4px; border-radius:8px; cursor:pointer; }
+.phase label:hover { background:#f5f3ea; }
+.phase input { margin-top:3px; accent-color: var(--green-700); }
+@media (max-width: 880px) { .checklist { grid-template-columns:1fr; } }
+.progress-wrap { margin-top:16px; background:#ece9dd; border-radius:12px; height:14px; overflow:hidden; max-width:820px; }
+.progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--gold),#eab308); transition:width .3s; }
+
+/* ===== FAQ ===== */
+.faq { max-width:900px; }
+.faq details { background:var(--paper); border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+.faq summary { cursor:pointer; padding:14px 18px; font-weight:700; color:var(--green-900); list-style:none; display:flex; gap:10px; align-items:center; }
+.faq summary::before { content:"＋"; color:var(--gold); font-weight:800; }
+.faq details[open] summary::before { content:"－"; }
+.faq details p { padding:0 18px 14px; font-size:.88rem; color:var(--muted); }
+
+/* ===== footer ===== */
+footer { background:var(--green-900); color:#bcd8c6; padding:26px 0; font-size:.82rem; }
+footer a { color:var(--gold-light); }
+.small { font-size:.75rem; color:#8fae9a; margin-top:10px; }
+@media (max-width:560px) { .nav-links { display:none; } .hero { padding:40px 0 48px; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Navigasi utama">
+  <div class="nav-inner">
+    <a class="brand" href="#"><span class="brand-badge">RS</span> Roadmap Santri</a>
+    <div class="nav-links">
+      <a href="#alur">Alur Besar</a>
+      <a href="#peta">Peta Jalur</a>
+      <a href="#quiz">Kuis</a>
+      <a href="#checklist">30-60-90</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker" style="color:var(--gold-light)">Untuk Santri Lulusan Pondok Pesantren</span>
+    <h1>Setelah Lulus Pondok,<br><em>Kamu Mau Ke Mana?</em></h1>
+    <p>Roadmap interaktif — terinspirasi <strong>roadmap.sh</strong> — memetakan <strong>14 jalur hidup</strong> setelah lulus: dari kuliah, jadi ustadz, kerja formal/informal, wirausaha, hingga dakwah digital. Pilih jalurnya, lalu ikuti langkahnya.</p>
+    <div class="stats">
+      <div class="stat"><b>14</b><span>jalur hidup</span></div>
+      <div class="stat"><b>6</b><span>kategori besar</span></div>
+      <div class="stat"><b>90</b><span>hari uji coba terarah</span></div>
+      <div class="stat"><b>∞</b><span>kombinasi (utama + cadangan)</span></div>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#peta">Lihat Peta Jalur</a>
+      <a class="btn btn-ghost" href="#quiz">Ikut Kuis Kecocokan</a>
+    </div>
+  </div>
+</header>
+
+<section id="alur" aria-labelledby="h-alur">
+  <div class="wrap">
+    <span class="kicker">1 · Alur Besar</span>
+    <h2 id="h-alur">Dari Lulus Pondok ke Hidup Mandiri</h2>
+    <p class="sub">Enam tahap ini berlaku untuk hampir semua jalur. Jangan loncat dari "lulus" langsung ke "bingung".</p>
+    <div class="flow" id="flowGrid"></div>
+  </div>
+</section>
+
+<section id="peta" style="background:#f2efe3" aria-labelledby="h-peta">
+  <div class="wrap">
+    <span class="kicker">2 · Peta Jalur</span>
+    <h2 id="h-peta">14 Jalur Hidup Setelah Lulus</h2>
+    <p class="sub">Klik kartu untuk membuka detail: langkah-langkah, syarat, prospek, tips, dan risikonya. Filter berdasarkan kategori.</p>
+    <div class="chips" id="chipRow" role="tablist"></div>
+    <div class="paths" id="pathGrid"></div>
+  </div>
+</section>
+
+<section id="quiz" aria-labelledby="h-quiz">
+  <div class="wrap">
+    <span class="kicker">3 · Kuis Kecocokan</span>
+    <h2 id="h-quiz">Jalur Mana yang Cocok Untukmu?</h2>
+    <p class="sub">8 pertanyaan singkat. Jawab dengan jujur — hasilnya 3 jalur teratas versi kuis (bukan vonis, hanya kompas).</p>
+    <form class="quiz-box" id="quizForm"></form>
+    <div class="quiz-result" id="quizResult" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="checklist" style="background:#f2efe3" aria-labelledby="h-check">
+  <div class="wrap">
+    <span class="kicker">4 · 30-60-90</span>
+    <h2 id="h-check">Checklist 30 · 60 · 90 Hari</h2>
+    <p class="sub">Rencana konkret 3 bulan setelah lulus. Centang yang sudah dilakukan — progress tersimpan di browser (lokal).</p>
+    <div class="checklist" id="checklistGrid"></div>
+    <div class="progress-wrap" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+    <p style="margin-top:8px; font-size:.82rem; color:var(--muted)"><span id="progressText">0 dari 15 langkah</span> — <button class="chip" id="resetChecklist" type="button" style="padding:2px 10px; font-size:.75rem">Reset</button></p>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <span class="kicker">5 · FAQ</span>
+    <h2 id="h-faq">Pertanyaan yang Sering Muncul</h2>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:#fff">Roadmap Santri</strong> — peta jalan santri setelah lulus pondok.<br>
+    Terinspirasi dari <a href="https://roadmap.sh" rel="noopener">roadmap.sh</a> · Konten bersifat panduan umum, bukan fatwa atau nasihat karier personal.<br>
+    <span class="small">Sumber inspirasi struktur: roadmap.sh (Kamran Ahmed). Data kualitatif disusun dari praktik umum pesantren &amp; dunia kerja Indonesia. Diunduh/disusun 17 Nov 2026. Dikelola di repo dwicao/riset-web · MIT.</span>
+  </div>
+</footer>
+
+<!-- Drawer detail jalur -->
+<div class="overlay" id="overlay" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="code" id="drawerCode">KU</span>
+    <div><h3 id="drawerTitle">Nama Jalur</h3><small id="drawerCat">Kategori</small></div>
+    <button class="close-btn" id="closeDrawer" aria-label="Tutup">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script src="data_jalur.js"></script>
+<script>
+'use strict';
+const ALUR = [
+  ['1', 'Kenali Dirimu', 'Catat hafalan, skill, minat, dan modal yang kamu punya sekarang.'],
+  ['2', 'Tentukan Prioritas', 'Ilmu dulu? Keluarga dulu? Penghasilan dulu? Jujur pada diri sendiri.'],
+  ['3', 'Pilih Jalur Utama + Cadangan', 'Satu jalur utama, satu cadangan — jangan sepuluh sekaligus.'],
+  ['4', 'Siapkan Syarat', 'Ijazah, SKCK, CV, hafalan tambahan, atau modal — lengkapi dulu.'],
+  ['5', 'Eksekusi 90 Hari', 'Ikuti checklist 30-60-90. Ukur hasilnya, bukan perasaannya.'],
+  ['6', 'Review & Pivot', 'Kalau tidak cocok, ganti jalur. Itu bukan gagal — itu data.'],
+];
+
+const flowGrid = document.getElementById('flowGrid');
+flowGrid.innerHTML = ALUR.map(([n,t,d]) => `<div class="stage"><span class="num">TAHAP ${n}</span><h3>${t}</h3><p>${d}</p></div>`).join('');
+
+/* ---------- filter chips ---------- */
+const chipRow = document.getElementById('chipRow');
+const cats = [['semua','Semua Jalur'], ...Object.entries(CATEGORIES).map(([k,v]) => [k, v.label])];
+chipRow.innerHTML = cats.map(([k,l], i) => `<button class="chip${i===0?' active':''}" data-cat="${k}" role="tab">${l}</button>`).join('');
+
+/* ---------- render kartu jalur ---------- */
+const grid = document.getElementById('pathGrid');
+function renderPaths(filter='semua') {
+  const list = JALUR.filter(j => filter === 'semua' || j.cat === filter);
+  grid.innerHTML = list.map(j => `
+    <button class="card" data-id="${j.id}" aria-label="Buka detail ${j.name}">
+      <div class="card-head">
+        <span class="code" style="background:${CATEGORIES[j.cat].color}">${j.code}</span>
+        <div><h3>${j.name}</h3><span class="cat-tag">${CATEGORIES[j.cat].label}</span></div>
+      </div>
+      <p>${j.summary}</p>
+      <span class="more">Buka langkah & detail →</span>
+    </button>`).join('');
+}
+renderPaths();
+chipRow.addEventListener('click', e => {
+  const btn = e.target.closest('.chip'); if (!btn) return;
+  chipRow.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === btn));
+  renderPaths(btn.dataset.cat);
+});
+
+/* ---------- drawer ---------- */
+const drawer = document.getElementById('drawer'), overlay = document.getElementById('overlay');
+const dCode = document.getElementById('drawerCode'), dTitle = document.getElementById('drawerTitle'),
+      dCat = document.getElementById('drawerCat'), dBody = document.getElementById('drawerBody');
+let lastFocus = null;
+function openDrawer(j) {
+  dCode.textContent = j.code; dCode.style.background = CATEGORIES[j.cat].color;
+  dTitle.textContent = j.name; dCat.textContent = CATEGORIES[j.cat].label;
+  dBody.innerHTML = `
+    <p>${j.summary}</p>
+    <div class="contoh-box" style="margin-top:10px"><strong>Contoh konkret:</strong> ${j.contoh}</div>
+    <h4>Langkah-langkah</h4><ol>${j.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+    <h4>Syarat</h4><div class="syarat-chips">${j.syarat.map(s => `<span>${s}</span>`).join('')}</div>
+    <h4>Prospek</h4><p>${j.prospek}</p>
+    <h4>Tips</h4><ul>${j.tips.map(t => `<li>${t}</li>`).join('')}</ul>
+    <h4>Risiko & Mitigasi</h4><ul>${j.resiko.map(t => `<li>${t}</li>`).join('')}</ul>`;
+  lastFocus = document.activeElement;
+  drawer.classList.add('open'); overlay.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false'); overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('closeDrawer').focus();
+}
+function closeDrawer() {
+  drawer.classList.remove('open'); overlay.classList.remove('open');
+  drawer.setAttribute('aria-hidden', 'true'); overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+}
+grid.addEventListener('click', e => {
+  const card = e.target.closest('.card'); if (!card) return;
+  const j = JALUR.find(x => x.id === card.dataset.id); if (j) openDrawer(j);
+});
+overlay.addEventListener('click', closeDrawer);
+document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+/* ---------- quiz ---------- */
+const form = document.getElementById('quizForm');
+form.innerHTML = QUIZ.map((item, qi) => `
+  <fieldset style="border:0; margin-bottom:2px">
+    <p class="quiz-q">${qi + 1}. ${item.q}</p>
+    <div class="quiz-opts">${item.options.map(([text], oi) => `
+      <label><input type="radio" name="q${qi}" value="${oi}" required><span>${text}</span></label>`).join('')}
+    </div>
+  </fieldset>`).join('') +
+  `<button class="btn btn-gold" type="submit" style="margin-top:10px">Lihat Hasil Kuis</button>`;
+const resultBox = document.getElementById('quizResult');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const score = {}; JALUR.forEach(j => score[j.id] = 0);
+  QUIZ.forEach((item, qi) => {
+    const pick = form.querySelector(`input[name="q${qi}"]:checked`);
+    if (!pick) return;
+    item.options[+pick.value][1].forEach(id => score[id] = (score[id] || 0) + 2);
+  });
+  const ranked = Object.entries(score).sort((a,b) => b[1]-a[1]).slice(0, 3);
+  const max = Math.max(...ranked.map(r => r[1]), 1);
+  resultBox.innerHTML = `<div class="quiz-box" style="box-shadow:none; border-left:5px solid var(--gold)">
+    <h3 style="color:var(--green-900)">Hasil Kuismu: 3 Jalur Teratas</h3>
+    ${ranked.map(([id, val]) => {
+      const j = JALUR.find(x => x.id === id);
+      return `<div class="bar-row"><span class="bar-name">${j.name}</span><div class="bar"><i style="width:${Math.round(val/max*100)}%"></i></div><span class="bar-val">${val} pt</span></div>`;
+    }).join('')}
+    <p style="font-size:.83rem; color:var(--muted); margin-top:10px">Ini kompas, bukan vonis. Bandingkan dengan <a href="#peta">Peta Jalur</a> dan bicarakan dengan orang tua/pembimbing/ulama. Pilih 1 utama + 1 cadangan.</p>
+    <button type="button" class="chip" id="openTop">Buka detail: ${JALUR.find(x => x.id === ranked[0][0]).name} →</button>
+  </div>`;
+  resultBox.style.display = 'block';
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('openTop').addEventListener('click', () => {
+    openDrawer(JALUR.find(x => x.id === ranked[0][0]));
+  });
+});
+
+/* ---------- checklist 30-60-90 + localStorage ---------- */
+const checkGrid = document.getElementById('checklistGrid');
+checkGrid.innerHTML = CHECKLIST_30_60_90.map(([title, items], pi) => `
+  <div class="phase"><h3>${title}</h3>
+    ${items.map((it, ii) => {
+      const key = `rc_${pi}_${ii}`;
+      return `<label><input type="checkbox" data-key="${key}"><span>${it}</span></label>`;
+    }).join('')}
+  </div>`).join('');
+const boxes = () => [...checkGrid.querySelectorAll('input[type=checkbox]')];
+const bar = document.getElementById('progressBar'), ptext = document.getElementById('progressText');
+function refreshProgress() {
+  const all = boxes(), done = all.filter(b => b.checked).length;
+  bar.style.width = (done / all.length * 100) + '%';
+  ptext.textContent = `${done} dari ${all.length} langkah`;
+}
+try { boxes().forEach(b => { if (localStorage.getItem(b.dataset.key) === '1') b.checked = true; }); } catch (e) {}
+checkGrid.addEventListener('change', e => {
+  const b = e.target.closest('input[type=checkbox]'); if (!b) return;
+  try { localStorage.setItem(b.dataset.key, b.checked ? '1' : '0'); } catch (e) {}
+  refreshProgress();
+});
+document.getElementById('resetChecklist').addEventListener('click', () => {
+  boxes().forEach(b => { b.checked = false; try { localStorage.removeItem(b.dataset.key); } catch (e) {} });
+  refreshProgress();
+});
+refreshProgress();
+
+/* ---------- FAQ ---------- */
+const faqList = document.getElementById('faqList');
+faqList.innerHTML = FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('');
+</script>
+</body>
+</html>

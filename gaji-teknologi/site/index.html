@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survei Gaji Teknologi Indonesia 2020–2022 — Hasil Analisis</title>
+<meta name="description" content="Analisis 416 responden survei gaji teknologi Indonesia (Februari 2020 – Januari 2022): median base Rp 144 jt/tahun, median total kompensasi Rp 216 jt, grafik interaktif per kota, posisi, pendidikan, gender, & asuransi.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+<style>
+:root {
+  --b900:#1e3a8a; --b800:#1e40af; --b700:#1d4ed8; --b600:#2563eb; --b100:#dbeafe; --b50:#eff4ff;
+  --ink:#1c1917; --muted:#57534e; --line:#e2e8f0; --paper:#ffffff; --bg:#f6f8ff;
+  --gold:#d97706; --ok:#15803d; --shadow:0 6px 18px rgba(30,58,138,.10);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+.wrap { max-width:1120px; margin:0 auto; padding:0 20px; }
+
+/* ===== nav ===== */
+nav { position:sticky; top:0; z-index:50; background:rgba(246,248,255,.9); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+.nav-inner { max-width:1120px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:16px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:800; color:var(--b900); text-decoration:none; }
+.brand-badge { width:34px; height:34px; border-radius:9px; background:var(--b800); color:#fff; display:grid; place-items:center; font-size:.78rem; letter-spacing:.5px; }
+.nav-links { margin-left:auto; display:flex; gap:2px; }
+.nav-links a { text-decoration:none; color:var(--ink); padding:7px 12px; border-radius:8px; font-size:.86rem; }
+.nav-links a:hover { background:var(--b100); color:var(--b800); }
+
+/* ===== hero ===== */
+.hero { background:linear-gradient(150deg, var(--b900) 0%, var(--b800) 58%, #2457c5 100%); color:#eef4ff; padding:52px 0 56px; }
+.kicker { text-transform:uppercase; letter-spacing:2px; font-size:.68rem; color:#93c5fd; font-weight:800; }
+h1 { font-size:clamp(1.9rem, 4.2vw, 2.6rem); line-height:1.16; letter-spacing:-.5px; margin-top:10px; }
+.hero p.lede { max-width:660px; margin-top:14px; color:#cfe1ff; }
+.hero .meta { font-size:.78rem; color:#9db9e8; margin-top:8px; }
+.stat-strip { display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; margin-top:26px; }
+.stat { border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.07); border-radius:14px; padding:12px 14px; }
+.stat b { display:block; font-size:1.28rem; color:#fff; }
+.stat span { font-size:.7rem; color:#b9cdec; }
+@media (max-width: 900px) { .stat-strip { grid-template-columns:repeat(2, 1fr); } .stat:last-child { grid-column: span 2; } }
+.hero-cta { margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; }
+.btn { display:inline-block; text-decoration:none; border-radius:10px; padding:11px 18px; font-weight:700; font-size:.92rem; }
+.btn-gold { background:var(--gold); color:#221c05; }
+.btn-gold:hover { background:#f59e0b; }
+.btn-ghost { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.45); }
+.btn-ghost:hover { background:rgba(255,255,255,.12); }
+
+/* ===== sections ===== */
+section { padding:44px 0; }
+.kick { text-transform:uppercase; letter-spacing:2px; font-size:.68rem; color:var(--gold); font-weight:800; }
+h2 { font-size:1.5rem; color:var(--b900); margin:6px 0 6px; letter-spacing:-.3px; }
+.sub { color:var(--muted); max-width:700px; margin-bottom:20px; font-size:.92rem; }
+
+/* ===== temuan utama ===== */
+.findings { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+.finding { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+.finding .tag { font-size:.62rem; letter-spacing:1.6px; text-transform:uppercase; color:var(--b600); font-weight:800; }
+.finding b { display:block; font-size:1.5rem; color:var(--b800); letter-spacing:-.5px; margin:6px 0 2px; }
+.finding p { font-size:.8rem; color:var(--muted); }
+.finding.wide { grid-column: span 2; }
+@media (max-width: 900px) { .findings { grid-template-columns:repeat(2,1fr); } }
+@media (max-width: 560px) { .findings { grid-template-columns:1fr; } .finding.wide { grid-column: span 1; } }
+
+/* ===== charts ===== */
+.charts { display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; }
+.chart-card { background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; }
+.chart-card h3 { font-size:.86rem; color:var(--b900); padding:12px 16px 0; letter-spacing:-.2px; }
+.chart-card .cap { padding:8px 16px 12px; font-size:.76rem; color:var(--muted); border-top:1px dashed var(--line); margin-top:10px; }
+.chart-card.wide { grid-column: span 2; }
+.chart-wrap { position:relative; height:260px; padding:6px 12px 0; }
+.chart-wrap.tall { height:340px; }
+.chart-wrap.xtall { height:430px; }
+@media (max-width: 900px) { .charts { grid-template-columns:1fr; } .chart-card.wide { grid-column: span 1; } }
+
+/* ===== metodologi ===== */
+.method { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:16px 22px; max-width:880px; box-shadow:var(--shadow); }
+.method li { margin:6px 0; font-size:.88rem; }
+.warn { background:#fef3c7; border:1px solid #fde68a; border-radius:12px; padding:13px 16px; max-width:880px; margin-top:16px; font-size:.86rem; }
+
+/* ===== unduh ===== */
+.dl { display:flex; gap:14px; flex-wrap:wrap; }
+.dl a { text-decoration:none; border:1.5px solid var(--b700); color:var(--b800); border-radius:12px; padding:13px 17px; font-weight:700; background:#fff; }
+.dl a:hover { background:var(--b100); }
+.dl small { display:block; font-weight:400; color:var(--muted); margin-top:4px; font-size:.76rem; max-width:320px; }
+.small { font-size:.74rem; color:#8a97a8; margin-top:14px; max-width:880px; }
+
+footer { background:var(--b900); color:#9db9e8; padding:24px 0; font-size:.82rem; }
+footer a { color:#fbbf24; }
+@media (max-width:560px) { .nav-links { display:none; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Navigasi">
+  <div class="nav-inner">
+    <a class="brand" href="#"><span class="brand-badge">SG</span> Survei Gaji Teknologi RI</a>
+    <div class="nav-links">
+      <a href="#temuan">Temuan</a>
+      <a href="#grafik">Grafik</a>
+      <a href="#metodologi">Metodologi</a>
+      <a href="#unduh">Unduh</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">Analisis Data Publik · Indonesia</span>
+    <h1>Survei Gaji<br>Teknologi Indonesia</h1>
+    <p class="lede">416 jawaban Google Form (Feb 2020 – Jan 2022) tentang base salary, bonus, RSU, posisi, pengalaman, pendidikan, kota, gender, dan asuransi — disajikan sebagai grafik web interaktif.</p>
+    <p class="meta">Sumber: Google Form &amp; Google Sheets (gid 1811584495) · Diolah 17 Nov 2026 · Median sebagai ukuran utama</p>
+    <div class="stat-strip">
+      <div class="stat"><b>416</b><span>responden (403 gaji valid)</span></div>
+      <div class="stat"><b>Rp 144 jt</b><span>median base / tahun</span></div>
+      <div class="stat"><b>Rp 216 jt</b><span>median total kompensasi</span></div>
+      <div class="stat"><b>80,9%</b><span>dapat allowance / bonus</span></div>
+      <div class="stat"><b>59,4%</b><span>responden dari Jakarta</span></div>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#temuan">Lihat Temuan</a>
+      <a class="btn btn-ghost" href="laporan_gaji_teknologi_indonesia.pdf">Unduh PDF Laporan</a>
+    </div>
+  </div>
+</header>
+
+<section id="temuan" aria-labelledby="h-temuan">
+  <div class="wrap">
+    <span class="kick">1 · Temuan Utama</span>
+    <h2 id="h-temuan">Angka-angka yang Penting</h2>
+    <p class="sub">Median dipakai sebagai acuan karena distribusi gaji miring ke kanan (outlier hingga Rp 3,15 miliar menarik rata-rata ke Rp 242 jt).</p>
+
+    <div class="findings">
+      <div class="finding"><span class="tag">Median Base</span><b>Rp 144 jt</b><p>per tahun (p25 Rp 72 jt – p75 Rp 300 jt), setara ± Rp 12 jt/bulan.</p></div>
+      <div class="finding"><span class="tag">Total Kompensasi</span><b>Rp 216 jt</b><p>median base + bonus + RSU. Rata-rata allowance Rp 91 jt/thn (median Rp 30 jt).</p></div>
+      <div class="finding"><span class="tag">Bonus &amp; RSU</span><b>81% / 8,4%</b><p>dapat allowance/bonus; dapat RSU/stock. Agregat RSU 22,5% dari total kompensasi.</p></div>
+      <div class="finding"><span class="tag">Gaji Tertinggi</span><b>Rp 360 jt</b><p>Management/Leadership (n=61), disusul Data Rp 200 jt &amp; SWE umum Rp 180 jt.</p></div>
+      <div class="finding"><span class="tag">Gender Gap</span><b>−8,3%</b><p>median perempuan Rp 132 jt vs laki-laki Rp 144 jt (n perempuan = 49; belum dikontrol pengalaman/level).</p></div>
+      <div class="finding"><span class="tag">Domisili</span><b>Jakarta 59,4%</b><p>247 dari 416 responden. Singapura ± Rp 780 jt — mungkin mengisi dalam SGD.</p></div>
+      <div class="finding"><span class="tag">Pendidikan</span><b>S2 Rp 240 jt</b><p>tertinggi; S1 Rp 150 jt · D3/D4 Rp 108 jt · SMA Rp 110 jt · SMK Rp 70 jt.</p></div>
+      <div class="finding"><span class="tag">Asuransi</span><b>31,7% tidak ada</b><p>31,7% BPJS saja · 6,3% BPJS + swasta · sisanya ambigu (teks bebas).</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="grafik" style="background:#eef2ff" aria-labelledby="h-grafik">
+  <div class="wrap">
+    <span class="kick">2 · Grafik Interaktif</span>
+    <h2 id="h-grafik">Lewat Kanvas, Bukan Gambar</h2>
+    <p class="sub">Setiap grafik: hover untuk angka detail, klik legenda untuk menyembunyikan/menampilkan seri.</p>
+
+    <div class="charts">
+      <div class="chart-card wide">
+        <h3>1. Distribusi Base Salary per Tahun</h3>
+        <div class="chart-wrap"><canvas id="c-hist"></canvas></div>
+        <div class="cap">403 isian valid (base ≥ Rp 12 jt/tahun). Garis hijau = median Rp 144 jt. Bin 50 jt; ekor 800+ termasuk outlier hingga Rp 3,15 miliar.</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>2. Median Base vs Pengalaman Kerja</h3>
+        <div class="chart-wrap"><canvas id="c-pengalaman"></canvas></div>
+        <div class="cap">9 = 9 tahun ke atas (n=61; termasuk senior/lead, median Rp 400 jt). Fluktuasi 7–8 th karena sampel kecil.</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>3. Base Salary per Jenis Kelamin</h3>
+        <div class="chart-wrap"><canvas id="c-gender"></canvas></div>
+        <div class="cap">Batang = rentang p25–p75; wajik = median. Laki-laki (n=354): Rp 144 jt · Perempuan (n=49): Rp 132 jt.</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>4. Median Base per Pendidikan</h3>
+        <div class="chart-wrap"><canvas id="c-pendidikan"></canvas></div>
+        <div class="cap">S1 150 jt (n=263) · S2 240 jt (n=33) · SMK 70 jt (n=39) · Diploma 108 jt (n=29) · SMA 110 jt (n=24).</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>5. Top 8 Kota &amp; Median Base-nya</h3>
+        <div class="chart-wrap"><canvas id="c-kota"></canvas></div>
+        <div class="cap">Batang biru = jumlah responden (sumbu kiri); garis oranye = median base (sumbu kanan, Rp jt).</div>
+      </div>
+
+      <div class="chart-card wide">
+        <h3>6. Median Base per Kelompok Posisi</h3>
+        <div class="chart-wrap xtall"><canvas id="c-posisi"></canvas></div>
+        <div class="cap">Label menampilkan median; tooltip menampilkan n responden. Security hanya n=3 — jangan digeneralisasi.</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>7. Komposisi Agregat Kompensasi</h3>
+        <div class="chart-wrap"><canvas id="c-komposisi"></canvas></div>
+        <div class="cap">Base 56,4% · Allowance/bonus 21,2% · RSU/stock 22,5% (didorong paket sangat besar; median RSU = 0).</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>8. Coverage Asuransi dari Perusahaan</h3>
+        <div class="chart-wrap tall"><canvas id="c-asuransi"></canvas></div>
+        <div class="cap">31,7% tidak ada (132) · 31,7% BPJS saja (132) · ada detail tidak jelas 51 · lainnya 50 · BPJS + swasta 26 · nilai manfaat 22 · swasta saja 3.</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>9. Median Base per Level Posisi</h3>
+        <div class="chart-wrap"><canvas id="c-level"></canvas></div>
+        <div class="cap">Lead/Manajerial Rp 330 jt (n=64) &gt; Senior Rp 267 jt (n=53) &gt; Mid/Staff Rp 120 jt (n=266) &gt; Junior Rp 66 jt (n=19).</div>
+      </div>
+
+      <div class="chart-card">
+        <h3>10. Perusahaan Menurut Jumlah Karyawan Tech</h3>
+        <div class="chart-wrap"><canvas id="c-ukuran"></canvas></div>
+        <div class="cap">U terbalik: startup kecil bayar tinggi (1–10: Rp 204 jt) &gt; skala menengah (51–200: Rp 104 jt) &gt; korporasi (&gt;1000: Rp 214 jt).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="metodologi" aria-labelledby="h-met">
+  <div class="wrap">
+    <span class="kick">3 · Metodologi &amp; Keterbatasan</span>
+    <h2 id="h-met">Bagaimana Angka Ini Dihasilkan</h2>
+    <ul class="method">
+      <li>Export Google Sheets (gid <code>1811584495</code>) → 416 baris × 12 kolom.</li>
+      <li>Angka format Indonesia diparse: titik = ribuan (<em>216.000.000</em> → Rp 216 jt), koma = desimal.</li>
+      <li><b>13 isian base &lt; Rp 12 jt/tahun</b> (diduga isian per bulan) dikeluarkan dari statistik gaji.</li>
+      <li>Kota dinormalkan (Jakarta &amp; variannya → Jakarta; Kota Malang/Malang → Malang; Singapore → Singapura).</li>
+      <li>Pendidikan dinormalkan ke SMA / SMK / Diploma (D3/D4) / S1 / S2. Posisi/Jabatan dikelompokkan ke 15 kelompok peran &amp; 5 level (Intern → Lead/Manajerial).</li>
+      <li>Statistik gaji memakai <b>n = 403</b> (base valid); statistik profil (gender, kota, asuransi, pendidikan) memakai <b>n = 416</b>.</li>
+      <li>Median sebagai ukuran utama; mean (Rp 242 jt) ditampilkan sebagai pembanding.</li>
+    </ul>
+    <div class="warn"><strong>Keterbatasan:</strong> bukan sampel acak (self-selection komunitas); data 2020–2022, era pre-GenAI — pasar gaji hari ini kemungkinan lebih tinggi; gaji self-reported; outlier hingga Rp 3,15 miliar menarik mean; jawaban asuransi = teks bebas; Singapura diperlakukan apa adanya (mungkin SGD). <b>Jangan jadikan benchmark tunggal</b> tanpa sampel terbaru yang dikontrol pengalaman/kota/level.</div>
+  </div>
+</section>
+
+<section id="unduh" aria-labelledby="h-unduh">
+  <div class="wrap">
+    <span class="kick">4 · Unduh &amp; Sumber</span>
+    <h2 id="h-unduh">Dokumen &amp; Repository</h2>
+    <div class="dl">
+      <a href="laporan_gaji_teknologi_indonesia.pdf">Laporan Lengkap (PDF)<small>8 halaman: metodologi, profil responden, kompensasi, posisi, gender, pendidikan, asuransi, rekomendasi</small></a>
+      <a href="https://docs.google.com/spreadsheets/d/1DBE6v5nYliDCUl8IQR9b-KS9-wlkw9-Wp2K0pQqNg6o/edit?gid=1811584495" rel="noopener">Google Sheets Sumber<small>gid 1811584495 · 416 responden · Form tertutup Jan 2022</small></a>
+      <a href="https://github.com/dwicao/riset-web/tree/main/gaji-teknologi" rel="noopener">Repository GitHub<small>Skrip analisis Python, data bersih, grafik — untuk transparansi &amp; reproduksi</small></a>
+    </div>
+    <p class="small">Data mentah individu (416 baris) tidak dipublikasikan di halaman ini. Statistik yang ditampilkan sepenuhnya agregat/anonim. Lisensi: MIT (kode &amp; grafik) · CC-BY 4.0 (laporan). Disusun 17 Nov 2026.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:#fff">Survei Gaji Teknologi Indonesia 2020–2022</strong><br>
+    Bagian dari <a href="https://github.com/dwicao/riset-web" rel="noopener">github.com/dwicao/riset-web</a> · Grafik interaktif: Chart.js (vendor lokal, tanpa CDN).<br>
+    <span class="small" style="color:#7ea4d9">Angka: n=416 (gaji valid n=403) · periode 15 Feb 2020 – 25 Jan 2022. Verifikasi ulang sebelum keputusan negosiasi/karier.</span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="vendor/chart.umd.min.js"></script>
+<script>
+'use strict';
+const BLUE = '#2563eb', BLUE_D = '#1e40af', BLUE_L = '#93c5fd', GOLD = '#d97706', GREEN = '#16a34a', GREY = '#94a3b8';
+const GRID = { color: 'rgba(100,116,139,.18)' };
+const JT = v => (v >= 1000 ? (v / 1000).toFixed(1).replace('.', ',') + ' M' : v) + ' jt';
+const TOOL = { callbacks: { label: ctx => ` ${ctx.dataset.label || ''}: ${ctx.parsed.y} Rp jt` } };
+
+// 1. Histogram base salary
+new Chart(document.getElementById('c-hist'), {
+  type: 'bar',
+  data: { labels: GAJI.hist.map(h => h.label), datasets: [{ label: 'Responden', data: GAJI.hist.map(h => h.count), backgroundColor: BLUE, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Base salary (Rp jt)' } }, y: { grid: GRID, title: { display: true, text: 'Jumlah responden' } } } }
+});
+
+// 2. Median per tahun pengalaman
+new Chart(document.getElementById('c-pengalaman'), {
+  type: 'bar',
+  data: { labels: GAJI.pengalaman.map(p => p.x), datasets: [{ label: 'Median (Rp jt)', data: GAJI.pengalaman.map(p => p.median), backgroundColor: GREEN, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => `n = ${GAJI.pengalaman[ctx.dataIndex].n} responden` } } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Lama pengalaman (tahun; 9 = 9+)' } }, y: { grid: GRID, title: { display: true, text: 'Median base (Rp jt)' } } } }
+});
+
+// 3. Gender — IQR floating bar + median (marker)
+const gl = Object.keys(GAJI.gender);
+new Chart(document.getElementById('c-gender'), {
+  type: 'bar',
+  data: {
+    labels: gl,
+    datasets: [
+      { label: 'Rentang p25–p75', data: gl.map(k => [GAJI.gender[k].p25, GAJI.gender[k].p75]), backgroundColor: BLUE_L, borderRadius: 6 },
+      { label: 'Median', type: 'line', showLine: false, data: gl.map(k => GAJI.gender[k].median), pointStyle: 'rectRot', pointRadius: 10, pointHoverRadius: 12, backgroundColor: BLUE_D, borderColor: BLUE_D }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: GRID, title: { display: true, text: 'Base salary (Rp jt)' }, min: 0 } } }
+});
+
+// 4. Pendidikan
+new Chart(document.getElementById('c-pendidikan'), {
+  type: 'bar',
+  data: { labels: GAJI.pendidikan.map(p => p.label), datasets: [{ label: 'Median (Rp jt)', data: GAJI.pendidikan.map(p => p.median), backgroundColor: GOLD, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => `n = ${GAJI.pendidikan[ctx.dataIndex].n}` } } }, scales: { y: { grid: GRID, title: { display: true, text: 'Median base (Rp jt)' } } } }
+});
+
+// 5. Kota: batang jumlah + garis median (sumbu kanan)
+new Chart(document.getElementById('c-kota'), {
+  type: 'bar',
+  data: {
+    labels: GAJI.kota.map(k => k.kota),
+    datasets: [
+      { type: 'bar', label: 'Responden', data: GAJI.kota.map(k => k.n), backgroundColor: BLUE, yAxisID: 'y', borderRadius: 4, order: 2 },
+      { type: 'line', label: 'Median (Rp jt)', data: GAJI.kota.map(k => k.median), borderColor: GOLD, backgroundColor: GOLD, pointRadius: 5, yAxisID: 'y1', tension: .25, order: 1 }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { position: 'left', title: { display: true, text: 'Jumlah responden' }, grid: GRID }, y1: { position: 'right', title: { display: true, text: 'Median (Rp jt)' }, grid: { drawOnChartArea: false } } } }
+});
+
+// 6. Kelompok posisi (horizontal)
+new Chart(document.getElementById('c-posisi'), {
+  type: 'bar',
+  data: { labels: GAJI.posisi.map(p => p.label), datasets: [{ label: 'Median (Rp jt)', data: GAJI.posisi.map(p => p.median), backgroundColor: '#5b7be0', borderRadius: 4 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => `n = ${GAJI.posisi[ctx.dataIndex].n} responden` } } }, scales: { x: { grid: GRID, title: { display: true, text: 'Median base (Rp jt)' } }, y: { grid: { display: false } } } }
+});
+
+// 7. Komposisi kompensasi (doughnut)
+new Chart(document.getElementById('c-komposisi'), {
+  type: 'doughnut',
+  data: { labels: ['Base salary', 'Allowance/bonus', 'RSU/stock'], datasets: [{ data: [GAJI.komposisi.base, GAJI.komposisi.allowance, GAJI.komposisi.rsu], backgroundColor: [BLUE, GOLD, '#b54494'], borderWidth: 2, borderColor: '#fff' }] },
+  options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { tooltip: { callbacks: { label: ctx => ` ${ctx.label}: Rp ${(ctx.parsed / 1000).toFixed(1)} M (${(ctx.parsed / (GAJI.komposisi.base + GAJI.komposisi.allowance + GAJI.komposisi.rsu) * 100).toFixed(1)}%)` } } } }
+});
+
+// 8. Asuransi (horizontal bar)
+new Chart(document.getElementById('c-asuransi'), {
+  type: 'bar',
+  data: { labels: GAJI.asuransi.map(a => a.label), datasets: [{ label: 'Responden', data: GAJI.asuransi.map(a => a.n), backgroundColor: BLUE, borderRadius: 4 }] },
+  options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: GRID, title: { display: true, text: 'Jumlah responden' } }, y: { grid: { display: false } } } }
+});
+
+// 9. Level posisi
+new Chart(document.getElementById('c-level'), {
+  type: 'bar',
+  data: { labels: GAJI.level.map(l => l.label), datasets: [{ label: 'Median (Rp jt)', data: GAJI.level.map(l => l.median), backgroundColor: BLUE_D, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => `n = ${GAJI.level[ctx.dataIndex].n}` } } }, scales: { y: { grid: GRID, title: { display: true, text: 'Median base (Rp jt)' } } } }
+});
+
+// 10. Ukuran perusahaan
+new Chart(document.getElementById('c-ukuran'), {
+  type: 'bar',
+  data: { labels: GAJI.ukuran.map(u => u.label), datasets: [{ label: 'Median (Rp jt)', data: GAJI.ukuran.map(u => u.median), backgroundColor: GREEN, borderRadius: 4 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => `n = ${GAJI.ukuran[ctx.dataIndex].n}` } } }, scales: { x: { grid: { display: false }, title: { display: true, text: 'Jumlah karyawan tech di perusahaan' } }, y: { grid: GRID, title: { display: true, text: 'Median base (Rp jt)' } } } }
+});
+</script>
+</body>
+</html>

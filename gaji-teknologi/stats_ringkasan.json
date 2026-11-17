@@ -1,0 +1,16 @@
+{
+  "n": 416,
+  "periode": "2020-02-15 s/d 2022-01-25",
+  "base_valid_n": 403,
+  "base_median": 144000000.0,
+  "base_mean": 241500829.73697272,
+  "base_p25": 72000000.0,
+  "base_p75": 300000000.0,
+  "base_max": 3150000000.0,
+  "total_median": 216000000.0,
+  "pct_allowance_gt0": 80.89330024813896,
+  "pct_rsu_gt0": 8.436724565756824,
+  "female_pct": 11.778846153846153,
+  "exp_median": 3.0,
+  "umur_median": 26.0
+}
