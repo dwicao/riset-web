@@ -7,7 +7,7 @@ Kumpulan analisis & proyek belajar, dirapikan per project. Setiap folder berisi 
 | Folder | Isi | Hasil |
 |---|---|---|
 | [`gaji-teknologi/`](gaji-teknologi/) | Analisis Survei Gaji Teknologi Indonesia 2020–2022 (416 responden) | `gaji-teknologi/laporan_gaji_teknologi_indonesia.pdf` · **Live:** https://gaji-teknologi.surge.sh |
-| [`soal-matan-santri/`](soal-matan-santri/) | 100 Soal Pilihan Ganda — Kitab Zikir dan Adab (untuk santri) | `soal-matan-santri/soal_zikir_adab_100pg.pdf` |
+| [`soal-matan-santri/`](soal-matan-santri/) | 100 Soal Pilihan Ganda — Kitab Zikir dan Adab (untuk santri) | `soal-matan-santri/soal_zikir_adab_100pg.pdf` · **Live:** https://soal-matan-santri.surge.sh |
 | [`roadmap-santri/`](roadmap-santri/) | Peta jalan santri setelah lulus pondok: 14 jalur, interaktif ala roadmap.sh | `roadmap-santri/index.html` · **Live:** https://roadmap-santri.surge.sh |
 
 ## Aturan main
